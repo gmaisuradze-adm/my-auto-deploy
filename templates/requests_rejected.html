@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}უარყოფილი მოთხოვნები{% endblock %}
+{% block pagetitle %}უარყოფილი მოთხოვნები{% endblock %}
+{% block content %}
+<div class="card mx-auto" style="max-width:1100px;">
+  <div class="card-body">
+    <h4 class="mb-4">უარყოფილი მოთხოვნები</h4>
+    {% if requests %}
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>ID</th><th>სახეობა</th><th>რაოდენობა</th><th>აღწერა</th>
+          <th>მდებარეობა</th><th>ავტორი</th><th>უარმყოფელი IT</th>
+          <th>უარყოფის დრო</th><th>მიზეზი</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for req in requests %}
+        <tr>
+          <td>{{ req.id }}</td>
+          <td>{{ req.type }}</td>
+          <td>{{ req.quantity }}</td>
+          <td>{{ req.description }}</td>
+          <td>{{ req.location }}</td>
+          <td>{{ req.requested_by }}</td>
+          <td>{{ req.assigned_to }}</td>
+          <td>{{ req.install_date }}</td>
+          <td>{{ req.response or "-" }}</td>
+          <td>
+            <a href="{{ url_for('request_view', req_id=req.id) }}" class="btn btn-sm btn-outline-primary" title="დეტალები">
+              <i class="bi bi-eye"></i>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="alert alert-info text-center">უარყოფილი მოთხოვნები არ მოიძებნა.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}ინვენტარის სია{% endblock %}
+{% block pagetitle %}ინვენტარის სია{% endblock %}
+
+{% block content %}
+<!-- ძიების ფორმა -->
+<form method="GET" class="mb-3 d-flex gap-2 flex-wrap">
+    <input type="text" name="q" class="form-control" style="max-width:220px;" placeholder="ძიება..." value="{{ request.args.get('q', '') }}">
+    <button type="submit" class="btn btn-outline-secondary">ძიება</button>
+    <a href="{{ url_for('add') }}" class="btn btn-success ms-auto"><i class="bi bi-plus-circle"></i> ახალი ჩანაწერი</a>
+</form>
+
+
+<div class="table-responsive">
+<table class="table table-striped table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>სახეობა</th>
+            <th>მწარმოებელი</th>
+            <th>მოდელი</th>
+            <th>სერიული ნომერი</th>
+            <th>სტატუსი</th>
+            <th>მფლობელი</th>
+            <th>დადგმის თარიღი</th>
+            <th>მდებარეობა</th>
+            <th>ტექნიკური აღწერა</th>
+            <th>კომენტარი</th>
+            <th>მოქმედება</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+        <tr>
+            <td>{{ item.type }}</td>
+            <td>{{ item.manufacturer }}</td>
+            <td>{{ item.model }}</td>
+            <td>{{ item.serial }}</td>
+            <td>
+                {% if item.status == 'აქტიური' %}
+                    <span class="badge bg-success">აქტიური</span>
+                {% elif item.status == 'არაქტიური' %}
+                    <span class="badge bg-secondary">არაქტიური</span>
+                {% elif item.status == 'დაზიანებული' %}
+                    <span class="badge bg-danger">დაზიანებული</span>
+                {% elif item.status == 'სათადარიგო' %}
+                    <span class="badge bg-warning text-dark">სათადარიგო</span>
+                {% else %}
+                    <span class="badge bg-light text-dark">{{ item.status }}</span>
+                {% endif %}
+            </td>
+            <td>{{ item.owner }}</td>
+            <td>{{ item.install_date }}</td>
+            <td>{{ item.location }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.comment }}</td>
+            <td>
+                <a href="{{ url_for('edit', item_id=item.id) }}" class="btn btn-sm btn-outline-primary" title="რედაქტირება"><i class="bi bi-pencil"></i></a>
+                <a href="{{ url_for('delete', item_id=item.id) }}" class="btn btn-sm btn-outline-danger" title="წაშლა" onclick="return confirm('დარწმუნებული ხარ წაშლაში?')"><i class="bi bi-trash"></i></a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="11" class="text-center">მონაცემები ვერ მოიძებნა.</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

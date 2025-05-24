@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}მოთხოვნები{% endblock %}
+{% block pagetitle %}მოთხოვნები{% endblock %}
+{% block content %}
+<div class="mb-3 d-flex">
+    <a href="{{ url_for('request_add') }}" class="btn btn-success ms-auto">
+        <i class="bi bi-plus-circle"></i> ახალი მოთხოვნა
+    </a>
+</div>
+<div class="table-responsive">
+<table class="table table-bordered table-striped align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>სახეობა</th>
+            <th>რაოდენობა</th>
+            <th>აღწერა</th>
+            <th>სტატუსი</th>
+            <th>მოთხოვნის ავტორი</th>
+            <th>პასუხისმგებელი</th>
+            <th>დასრულების დრო</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for req in requests %}
+        <tr>
+            <td>{{ req.id }}</td>
+            <td>{{ req.type }}</td>
+            <td>{{ req.quantity or "-" }}</td>
+            <td>{{ req.description }}</td>
+            <td>
+                {% if req.status == 'ახალი' %}
+                    <span class="badge bg-warning text-dark">ახალი</span>
+                {% elif req.status == 'შესრულებულია' %}
+                    <span class="badge bg-success">შესრულებულია</span>
+                {% elif req.status == 'უარყოფილია' %}
+                    <span class="badge bg-danger">უარყოფილია</span>
+                {% else %}
+                    <span class="badge bg-secondary">{{ req.status }}</span>
+                {% endif %}
+            </td>
+            <td>{{ req.requested_by }}</td>
+            <td>{{ req.assigned_to or "-" }}</td>
+            <td>{{ req.install_date or "-" }}</td>
+            <td>
+                <a href="{{ url_for('request_view', req_id=req.id) }}" class="btn btn-sm btn-outline-primary" title="დეტალები">
+                    <i class="bi bi-eye"></i>
+                </a>
+            </td>
+        </tr>
+    {% else %}
+        <tr><td colspan="9" class="text-center text-muted">მოთხოვნები არ მოიძებნა</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

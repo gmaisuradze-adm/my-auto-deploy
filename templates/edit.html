@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}ჩანაწერის რედაქტირება{% endblock %}
+{% block pagetitle %}რედაქტირება: {{ item.type }}{% endblock %}
+{% block content %}
+<div class="card mx-auto" style="max-width:900px;">
+  <div class="card-body">
+    <h4 class="mb-4 text-center">ინვენტარის რედაქტირება</h4>
+    <form method="POST">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">სახეობა</label>
+          <input name="type" class="form-control" value="{{ item.type }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">მწარმოებელი</label>
+          <input name="manufacturer" class="form-control" value="{{ item.manufacturer }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">მოდელი</label>
+          <input name="model" class="form-control" value="{{ item.model }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">სერიული ნომერი</label>
+          <input name="serial" class="form-control" value="{{ item.serial }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">სტატუსი</label>
+          <select name="status" class="form-select">
+            <option {% if item.status == 'აქტიური' %}selected{% endif %}>აქტიური</option>
+            <option {% if item.status == 'არაქტიური' %}selected{% endif %}>არაქტიური</option>
+            <option {% if item.status == 'დაზიანებული' %}selected{% endif %}>დაზიანებული</option>
+            <option {% if item.status == 'სათადარიგო' %}selected{% endif %}>სათადარიგო</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">მფლობელი</label>
+          <input name="owner" class="form-control" value="{{ item.owner }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">დადგმის თარიღი</label>
+          <input name="install_date" class="form-control" type="date" value="{{ item.install_date }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">მდებარეობა</label>
+          <input name="location" class="form-control" value="{{ item.location }}">
+        </div>
+        <div class="col-12">
+          <label class="form-label">ტექნიკური აღწერა</label>
+          <input name="description" class="form-control" value="{{ item.description }}">
+        </div>
+        <div class="col-12">
+          <label class="form-label">კომენტარი</label>
+          <input name="comment" class="form-control" value="{{ item.comment }}">
+        </div>
+        <div class="col-12 d-flex gap-2">
+          <button type="submit" class="btn btn-success px-4">შენახვა</button>
+          <a href="{{ url_for('index') }}" class="btn btn-secondary">სია</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

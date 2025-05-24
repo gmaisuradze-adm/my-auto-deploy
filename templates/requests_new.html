@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}ახალი მოთხოვნები{% endblock %}
+{% block pagetitle %}ახალი მოთხოვნები{% endblock %}
+{% block content %}
+<div class="card mx-auto" style="max-width:1100px;">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="mb-0">ახალი მოთხოვნები</h4>
+      <a href="{{ url_for('request_add') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> ახალი მოთხოვნა
+      </a>
+    </div>
+    {% if requests %}
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>ID</th><th>სახეობა</th><th>რაოდენობა</th><th>აღწერა</th><th>მდებარეობა</th>
+          <th>ავტორი</th><th>თარიღი</th><th>მოქმედება</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for req in requests %}
+        <tr>
+          <td>{{ req.id }}</td>
+          <td>{{ req.type }}</td>
+          <td>{{ req.quantity }}</td>
+          <td>{{ req.description }}</td>
+          <td>{{ req.location }}</td>
+          <td>{{ req.requested_by }}</td>
+          <td>{{ req.created_at }}</td>
+          <td>
+            <a href="{{ url_for('request_view', req_id=req.id) }}" class="btn btn-sm btn-outline-primary">
+              <i class="bi bi-eye"></i>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="alert alert-info text-center">მოთხოვნები არ მოიძებნა.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

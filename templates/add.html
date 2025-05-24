@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}ახალი ჩანაწერის დამატება{% endblock %}
+{% block pagetitle %}ახალი ჩანაწერი{% endblock %}
+{% block content %}
+<div class="card mx-auto" style="max-width:900px;">
+  <div class="card-body">
+    <h4 class="mb-4 text-center">ახალი ინვენტარის დამატება</h4>
+    <form method="POST">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">სახეობა</label>
+          <select name="type" class="form-select" required>
+            <option value="">აირჩიე...</option>
+            <option>კომპიუტერი</option>
+            <option>ნოუთბუქი</option>
+            <option>მონიტორი</option>
+            <option>პრინტერი</option>
+            <option>სკანერი</option>
+            <option>UPS</option>
+            <option>სხვა</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">მწარმოებელი</label>
+          <select name="manufacturer" class="form-select">
+            <option value="">აირჩიე...</option>
+            <option>DELL</option>
+            <option>HP</option>
+            <option>Lenovo</option>
+            <option>Acer</option>
+            <option>Asus</option>
+            <option>Apple</option>
+            <option>Canon</option>
+            <option>Samsung</option>
+            <option>სხვა</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">მოდელი</label>
+          <input name="model" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">სერიული ნომერი</label>
+          <input name="serial" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">სტატუსი</label>
+          <select name="status" class="form-select" required>
+            <option>აქტიური</option>
+            <option>არაქტიური</option>
+            <option>დაზიანებული</option>
+            <option>სათადარიგო</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">მფლობელი</label>
+          <input name="owner" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">დადგმის თარიღი</label>
+          <input name="install_date" class="form-control" type="date">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">მდებარეობა</label>
+          <input name="location" class="form-control">
+        </div>
+        <div class="col-12">
+          <label class="form-label">ტექნიკური აღწერა</label>
+          <input name="description" class="form-control">
+        </div>
+        <div class="col-12">
+          <label class="form-label">კომენტარი</label>
+          <input name="comment" class="form-control">
+        </div>
+        <div class="col-12 d-flex gap-2">
+          <button type="submit" class="btn btn-success px-4">დამატება</button>
+          <a href="{{ url_for('index') }}" class="btn btn-secondary">სია</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

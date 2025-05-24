@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}მოთხოვნის დამატება{% endblock %}
+{% block pagetitle %}ახალი მოთხოვნა{% endblock %}
+{% block content %}
+<div class="card mx-auto" style="max-width:800px;">
+  <div class="card-body">
+    <h4 class="mb-4 text-center">ახალი მოთხოვნის დამატება</h4>
+    <form method="POST">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">სახეობა</label>
+          <input name="type" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">რაოდენობა</label>
+          <input name="quantity" type="number" min="1" class="form-control" required>
+        </div>
+        <div class="col-12">
+          <label class="form-label">აღწერა</label>
+          <textarea name="description" class="form-control" rows="2" required></textarea>
+        </div>
+        <div class="col-12">
+          <label class="form-label">მიზეზი</label>
+          <input name="reason" class="form-control">
+        </div>
+        <div class="col-12">
+          <label class="form-label">მდებარეობა</label>
+          <input name="location" class="form-control">
+        </div>
+        <div class="col-12 d-flex gap-2">
+          <button type="submit" class="btn btn-success px-4">დამატება</button>
+          <a href="{{ url_for('requests_new') }}" class="btn btn-secondary">სია</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
